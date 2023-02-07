@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import Beer from './Beer';
 
-const data = [
+export const data = [
   {
     id: '1',
     name: 'Pilsner',
@@ -42,7 +43,10 @@ const data = [
 function App() {
   const [items, setItems] = useState({});
 
+  console.log('rendered');
+ 
   useEffect(() => {
+    console.log('use effect');
     const request = () =>
       data.forEach((product) => {
         fetch(`http://localhost:8081/temperature/${product.id}`)
@@ -75,21 +79,8 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {Object.keys(items).map((itemKey) => (
-            <tr key={items[itemKey].id}>
-              <td width={150}>{items[itemKey].name}</td>
-              <td width={150}>{items[itemKey].temperature}</td>
-              <td width={150}>
-                {items[itemKey].temperature <
-                  items[itemKey].minimumTemperature && <span>too low</span>}
-                {items[itemKey].temperature >
-                  items[itemKey].maximumTemperature && <span>too high</span>}
-                {items[itemKey].temperature <=
-                  items[itemKey].maximumTemperature &&
-                  items[itemKey].temperature >=
-                    items[itemKey].minimumTemperature && <span>all good</span>}
-              </td>
-            </tr>
+          {Object.keys(items).map((itemKey, index) => (
+            <Beer index={index} key={items[itemKey].id} beer={items[itemKey]} />
           ))}
         </tbody>
       </table>
