@@ -43,10 +43,7 @@ export const data = [
 function App() {
   const [items, setItems] = useState({});
 
-  console.log('rendered');
- 
-  useEffect(() => {
-    console.log('use effect');
+   useEffect(() => {
     const request = () =>
       data.forEach((product) => {
         fetch(`http://localhost:8081/temperature/${product.id}`)
